@@ -1,0 +1,71 @@
+create database store
+
+create table countries (
+    code int primary key,
+    name varchar(20),
+    continent_name int
+
+);
+
+create table users(
+id int primary key not null unique ,
+fullname varchar(20),
+email varchar(20),
+gander char(1) check (gander='f'or gander='m' ),
+date_of_birth varchar(15),
+created_at datetime,
+country_code int,
+foreign key (country_code) references countries(code)
+);
+
+create table orders(
+ id int primary key not null unique ,
+ status varchar(10) check ( status='start'or status='finish' ),
+ created_at datetime,
+ user_id int ,
+ foreign key (user_id) references  order_products (order_id)  ON DELETE CASCADE
+);
+
+create table order_products(
+order_id int primary key not null unique ,
+prodect_id int not null ,
+quantity  int default 0
+);
+
+
+
+create table products(
+id int primary key not null unique ,
+name varchar(10) not null,
+price int default 0,
+status varchar(10) check ( status='valid' or status= 'expired' ),
+created_at datetime,
+productid int
+);
+
+
+
+
+
+create table order_product (
+order_id int primary key not null unique ,
+productid int ,
+foreign key (productid ) references products(id) ON DELETE CASCADE
+
+
+);
+
+INSERT INTO countries VALUES (1, 'Areej', 111)
+INSERT INTO  users VALUES (1,'aREEJ','RE@homail.com','f',1-1-1983, 1-1-2020,111);
+
+INSERT INTO orders VALUES (1,'start',1-1-2020,12)
+
+INSERT INTO order_products values (12,34,12);
+
+SELECT * FROM countries;
+
+UPDATE countries set name = 'amal';
+
+INSERT INTO products VALUES (1,'areej',123,'valid',1-1-2020,12);
+
+DELETE FROM products where id=1
